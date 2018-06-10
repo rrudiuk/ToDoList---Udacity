@@ -113,16 +113,12 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         setupViewModel();
     }
 
-    // TODO (8) This method is not retrieving the tasks any more. Refactor to a more suitable name such as setupViewModel
     private void setupViewModel() {
-        // TODO (5) Remove the logging and the call to loadAllTasks, this is done in the ViewModel now
-        // TODO (6) Declare a ViewModel variable and initialize it by calling ViewModelProviders.of
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        // TODO (7) Observe the LiveData object in the ViewModel
         viewModel.getTasks().observe(this, new Observer<List<TaskEntry>>() {
             @Override
             public void onChanged(@Nullable List<TaskEntry> taskEntries) {
-                Log.d(TAG, "Updating list of tasks from LiveData in the ViewModel");
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setTasks(taskEntries);
             }
         });

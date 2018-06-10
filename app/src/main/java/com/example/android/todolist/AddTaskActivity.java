@@ -77,15 +77,13 @@ public class AddTaskActivity extends AppCompatActivity {
                 // populate the UI
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
+                Log.d(TAG, "Actively retrieving a specific task from the DataBase");
                 final LiveData<TaskEntry> task = mDb.taskDao().loadTaskById(mTaskId);
-                // TODO (4) Observe tasks and move the logic from runOnUiThread to onChanged
-                // We will be able to simplify this once we learn more
-                // about Android Architecture Components
                 task.observe(this, new Observer<TaskEntry>() {
                     @Override
                     public void onChanged(@Nullable TaskEntry taskEntry) {
                         task.removeObserver(this);
-                        Log.d(TAG, "Updating the element");
+                        Log.d(TAG, "Receiving database update from LiveData");
                         populateUI(taskEntry);
                     }
                 });
